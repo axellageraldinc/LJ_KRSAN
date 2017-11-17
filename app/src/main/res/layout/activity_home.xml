@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pap.ta.lj_krsan.HomeActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnBuatGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BUAT GAME" />
+
+    <Button
+        android:id="@+id/btnJoinGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GABUNG GAME" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGOUT" />
+</LinearLayout>
