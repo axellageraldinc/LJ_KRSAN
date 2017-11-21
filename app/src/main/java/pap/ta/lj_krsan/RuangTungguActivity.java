@@ -78,8 +78,6 @@ public class RuangTungguActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     Intent i = new Intent(getApplicationContext(), GameScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     i.putExtra("idGame", idGame);
-//                                    i.putExtra("id_user_1", user.getUid());
-//                                    System.out.println("User id 1 di get player amount : " + user.getUid());
                                     startActivity(i);
                                     finish();
                                 }

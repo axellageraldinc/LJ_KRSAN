@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import pap.ta.lj_krsan.Model.Game;
 import pap.ta.lj_krsan.Model.User;
@@ -26,7 +27,7 @@ public class GameScreen extends AppCompatActivity {
     FirebaseUser user;
 
     Intent i;
-    TextView txtPemain1, txtPemain2, txtObjective;
+    TextView txtPemain1, txtPemain2, txtObjective, txtMakul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,10 @@ public class GameScreen extends AppCompatActivity {
         txtPemain1 = findViewById(R.id.txtPemain1);
         txtPemain2 = findViewById(R.id.txtPemain2);
         txtObjective = findViewById(R.id.txtObjektif);
+        txtMakul = findViewById(R.id.txtMakul);
         GetPlayersName();
         GetObjektif();
+        RandomMakul();
     }
 
     private void GetPlayersName(){
@@ -88,36 +91,6 @@ public class GameScreen extends AppCompatActivity {
 
             }
         });
-//        try{
-//            databaseReference.child("users_info").child(i.getStringExtra("id_user_1")).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    txtPemain1.setText(dataSnapshot.getValue(User.class).getUsername());
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//        } catch (Exception ex){
-//            System.out.println("Gagal get user id 1 : " + ex.toString());
-//        }
-//        try{
-//            databaseReference.child("users_info").child(i.getStringExtra("id_user_2")).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    txtPemain2.setText(dataSnapshot.getValue(User.class).getUsername());
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//        } catch (Exception ex){
-//            System.out.println("Gagal get user id 2: " + ex.toString());
-//        }
     }
     private void GetObjektif(){
         databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("objective").addValueEventListener(new ValueEventListener() {
@@ -131,5 +104,29 @@ public class GameScreen extends AppCompatActivity {
 
             }
         });
+    }
+    private void RandomMakul(){
+        Random random = new Random();
+        int i=3; int target;
+        final List<String> makulList = new ArrayList<>();
+        String makul = null;
+        for (int j=0; j<i; j++){
+            target = random.nextInt((5 - 1) + 1) + 1;
+            databaseReference.child("makul").child(String.valueOf(target)).child("name").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    makulList.add(dataSnapshot.getValue(String.class));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            for (String item : makulList){
+                makul = makul + item + "\n";
+            }
+            txtMakul.setText(makul);
+        }
     }
 }

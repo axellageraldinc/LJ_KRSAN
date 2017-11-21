@@ -63,8 +63,6 @@ public class AvailableGamesActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Intent i = new Intent(getApplicationContext(), GameScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        i.putExtra("id_user_1", firstPlayerId);
-//                                        i.putExtra("id_user_2", user.getUid());
                                         i.putExtra("idGame", game.getId());
                                         startActivity(i);
                                         finish();
@@ -74,21 +72,6 @@ public class AvailableGamesActivity extends AppCompatActivity {
                         }
                     }
                 });
-//                databaseReference.child("games_info").child(game.getId()).child("player_list").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            databaseReference.child("games_info").child(game.getId()).child("player_list").setValue(playerList).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if(task.isSuccessful()){
-//
-//                                    }
-//                                }
-//                            });
-//                        }
-//                    }
-//                });
             }
         });
     }
