@@ -36,6 +36,7 @@ public class GameScreen extends AppCompatActivity {
     TextView txtMakul1, txtMakul2, txtMakul3, txtMakul4, txtMakul5, txtMakul6, txtMakul7, txtMakul8;
 
     List<Makul> makulList = new ArrayList<>();
+    List<String> makuls = new ArrayList<>();
     ListView listMakul;
     ListMakulAdapter adapter;
     int urutanKlik=1;
@@ -148,31 +149,87 @@ public class GameScreen extends AppCompatActivity {
         });
     }
     private void RandomMakul(){
-        Random random = new Random();
-        final int i=6; int target;
-        final List<String> makulList = new ArrayList<>();
-        for (int j=0; j<i; j++){
-            target = random.nextInt((8 - 1) + 1) + 1;
-            System.out.println("Random makul : " + target);
-            final int finalJ = j;
-            databaseReference.child("makul").child(String.valueOf(target)).child("name").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    makulList.add(dataSnapshot.getValue(String.class));
-                    if(finalJ == i-1){
-                        String makul = new String();
-                        for (String item : makulList){
-                            makul = makul + item + " ";
-                        }
-                        txtMakul.setText(makul);
+        databaseReference.child("makul").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                makuls.clear();
+                try{
+                    for (DataSnapshot data : dataSnapshot.getChildren()){
+                        String makul = data.getValue(Makul.class).getName();
+                        makuls.add(makul);
                     }
+                } catch (Exception ex){
+                    System.out.println("Gagal get makul from db : " + ex.toString());
                 }
+                Collections.shuffle(makuls);
+                databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("makul_obyektif").setValue(makuls);
+                    databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("makul_obyektif").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String makul = new String();
+                            GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
+                            List<String> makulList = dataSnapshot.getValue(t);
+                            for(String item : makulList){
+                                makul = makul + item + " ";
+                            }
+                            txtMakul.setText(makul);
+                        }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        }
+                        }
+                    });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//        Random random = new Random();
+//        final int counter=6; int target;
+//        final List<String> makulList = new ArrayList<>();
+//        for (int j=0; j<counter; j++){
+//            target = random.nextInt((8 - 1) + 1) + 1;
+//            System.out.println("Random makul : " + target);
+//            final int finalJ = j;
+//            databaseReference.child("makul").child(String.valueOf(target)).child("name").addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    makulList.add(dataSnapshot.getValue(String.class));
+////                    if(finalJ == counter-1){
+////                        String makul = new String();
+////                        for (String item : makulList){
+////                            makul = makul + item + " ";
+////                        }
+////                        txtMakul.setText(makul);
+////                    }
+//                    databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("makul_obyektif").setValue(makulList);
+//                    databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("makul_obyektif").addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            String makul = new String();
+//                            GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
+//                            List<String> makulList = dataSnapshot.getValue(t);
+//                            for(String item : makulList){
+//                                makul = makul + item + " ";
+//                            }
+//                            txtMakul.setText(makul);
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
     }
 }

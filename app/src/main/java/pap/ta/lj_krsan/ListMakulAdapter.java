@@ -65,7 +65,6 @@ public class ListMakulAdapter extends BaseAdapter {
             public void onClick(View view) {
                 txtUrutan.setVisibility(View.VISIBLE);
                 txtUrutan.setText(String.valueOf(ix));
-//                txtUrutan.setText(ix);
                 ix++;
             }
         });
