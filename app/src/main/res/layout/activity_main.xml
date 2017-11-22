@@ -5,7 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
+    android:background="@drawable/bgmain"
+    android:gravity="center_vertical"
     android:orientation="vertical"
+    android:paddingLeft="150dp"
+    android:paddingRight="150dp"
     tools:context="pap.ta.lj_krsan.MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/logo" />
+
+    <Button
+        android:id="@+id/btnPlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_kuning"
+        android:text="PLAY"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_kuning"
+        android:text="REGISTER ACCOUNT"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>

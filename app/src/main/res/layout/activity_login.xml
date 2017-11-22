@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pap.ta.lj_krsan.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="100dp"
+    android:paddingRight="100dp"
+    tools:context="pap.ta.lj_krsan.LoginActivity">
 
     <EditText
         android:id="@+id/txtEmail"

@@ -1,5 +1,6 @@
 package pap.ta.lj_krsan;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +26,7 @@ import java.util.Random;
 
 import pap.ta.lj_krsan.Model.Game;
 import pap.ta.lj_krsan.Model.Makul;
+import pap.ta.lj_krsan.Model.Score;
 import pap.ta.lj_krsan.Model.User;
 
 public class GameScreen extends AppCompatActivity {
@@ -32,14 +35,15 @@ public class GameScreen extends AppCompatActivity {
     FirebaseUser user;
 
     Intent i;
+    int winner=0;
+    String id_winner;
     TextView txtPemain1, txtPemain2, txtObjective, txtMakul;
-    TextView txtMakul1, txtMakul2, txtMakul3, txtMakul4, txtMakul5, txtMakul6, txtMakul7, txtMakul8;
 
     List<Makul> makulList = new ArrayList<>();
     List<String> makuls = new ArrayList<>();
+    List<Score> scoreList = new ArrayList<>();
     ListView listMakul;
     ListMakulAdapter adapter;
-    int urutanKlik=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,25 +53,58 @@ public class GameScreen extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         user = firebaseAuth.getCurrentUser();
 
-        listMakul = findViewById(R.id.listMakul);
-        adapter = new ListMakulAdapter(getApplicationContext(), makulList);
-
         i = getIntent();
-        System.out.println("User id 1 : " + i.getStringExtra("id_user_1"));
-        System.out.println("User id 2 : " + i.getStringExtra("id_user_2"));
 
+        listMakul = findViewById(R.id.listMakul);
+        adapter = new ListMakulAdapter(getApplicationContext(), makulList, i.getStringExtra("idGame"));
         txtPemain1 = findViewById(R.id.txtPemain1);
         txtPemain2 = findViewById(R.id.txtPemain2);
         txtObjective = findViewById(R.id.txtObjektif);
         txtMakul = findViewById(R.id.txtMakul);
-        txtMakul1 = findViewById(R.id.txtMakul1); txtMakul2 = findViewById(R.id.txtMakul2); txtMakul3 = findViewById(R.id.txtMakul3); txtMakul4 = findViewById(R.id.txtMakul4);
-        txtMakul5 = findViewById(R.id.txtMakul5); txtMakul6 = findViewById(R.id.txtMakul6); txtMakul7 = findViewById(R.id.txtMakul7); txtMakul8= findViewById(R.id.txtMakul8);
         GetPlayersName();
         GetMakulFromDb();
         GetObjektif();
         RandomMakul();
+        CekScore();
     }
+    private void CekScore(){
+        databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("scores").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Score score = data.getValue(Score.class);
+                    scoreList.add(score);
+                    if(scoreList.size()>1){
+                        //Game selesai, penentuan pemenang disini
+                        for(Score item : scoreList){
+                            if(item.getScore()>winner) {
+                                id_winner = item.getId_user();
+                                winner = item.getScore();
+                            }
+                        }
+                        System.out.println("Pemenangnya adalah " + id_winner + " dengan score " + winner);
+                        databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("scores").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int score1 = dataSnapshot.getValue(Score.class).getScore();
+                                System.out.println("Score anda : " + score1);
+                            }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     private void GetMakulFromDb(){
         databaseReference.child("makul").addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,7 +129,6 @@ public class GameScreen extends AppCompatActivity {
             }
         });
     }
-
     private void GetPlayersName(){
         databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("player_list").addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,9 +185,15 @@ public class GameScreen extends AppCompatActivity {
         });
     }
     private void RandomMakul(){
+        final ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
         databaseReference.child("makul").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                progressDialog.setTitle("Harap tunggu");
+                progressDialog.setMessage("Me-random makul");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
                 makuls.clear();
                 try{
                     for (DataSnapshot data : dataSnapshot.getChildren()){
@@ -180,6 +222,7 @@ public class GameScreen extends AppCompatActivity {
 
                         }
                     });
+                    progressDialog.dismiss();
             }
 
             @Override
@@ -231,5 +274,13 @@ public class GameScreen extends AppCompatActivity {
 //                }
 //            });
 //        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(getApplicationContext(), "Tidak boleh meninggalkan perang KRS!", Toast.LENGTH_SHORT).show();
     }
 }
+

@@ -71,7 +71,7 @@ public class RuangTungguActivity extends AppCompatActivity {
                 try{
                     Game game = dataSnapshot.getValue(Game.class);
                     if(game.getPlayer_amount()>1){
-                        Toast.makeText(RuangTungguActivity.this, "Player Amount : " + game.getPlayer_amount(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(RuangTungguActivity.this, "Player Amount : " + game.getPlayer_amount(), Toast.LENGTH_SHORT).show();
                         databaseReference.child("games_info").child(idGame).child("status").setValue(0).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
