@@ -93,6 +93,7 @@ public class ListMakulAdapter extends BaseAdapter {
                 if(ix<=makulList.size()){
                     txtUrutan.setVisibility(View.VISIBLE);
                     txtUrutan.setText(String.valueOf(ix));
+                    notifyDataSetChanged();
                     clickedMakul.add(txtMakul.getText().toString());
                     if(ix==makulList.size()){
                         databaseReference.child("games_info").child(idGame).child("makul_obyektif").addValueEventListener(new ValueEventListener() {

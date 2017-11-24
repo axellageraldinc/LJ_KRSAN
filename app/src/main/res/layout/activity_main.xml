@@ -19,17 +19,17 @@
         app:srcCompat="@drawable/logo" />
 
     <Button
-        android:id="@+id/btnPlay"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_kuning"
-        android:text="PLAY"
+        android:text="LOGIN"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

@@ -1,39 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pap.ta.lj_krsan.GameScreen"
-    android:orientation="vertical">
+    android:background="@drawable/brick"
+    android:gravity="fill_horizontal"
+    android:orientation="horizontal"
+    tools:context="pap.ta.lj_krsan.GameScreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="2.5"
+            android:background="@drawable/boxobjective"
+            android:orientation="vertical"
+            android:paddingLeft="5dp">
+
+            <TextView
+                android:id="@+id/txtObjektif"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:maxEms="10"
+                android:singleLine="false"
+                android:text="TextView"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtMakul"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:maxEms="10"
+                android:singleLine="false"
+                android:text="TextView"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/gamescreen_comp"
+            android:orientation="vertical">
+
+            <GridView
+                android:id="@+id/gridMakul"
+                android:layout_width="433dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center_vertical|center"
+                android:layout_marginTop="15dp"
+                android:columnWidth="85dp"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:horizontalSpacing="2dp"
+                android:numColumns="auto_fit"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="15dp"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtPemain1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/txtPemain2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/txtObjektif"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/txtMakul"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/listMakul"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="95dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="115dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone" />
 
-</LinearLayout>
+</FrameLayout>

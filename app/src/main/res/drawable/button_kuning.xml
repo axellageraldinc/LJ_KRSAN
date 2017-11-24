@@ -3,6 +3,8 @@
 
     <item android:state_pressed="true" android:drawable="@drawable/button_kuning_pressed" />
     <item android:state_focused="true" android:drawable="@drawable/button_kuning_pressed" />
+    <item android:state_enabled="false" android:drawable="@drawable/button_kuning_pressed" />
+    <item android:state_enabled="true" android:drawable="@drawable/button_kuning_default" />
     <item android:drawable="@drawable/button_kuning_default" />
     <item android:drawable="@color/white" />
 </selector>

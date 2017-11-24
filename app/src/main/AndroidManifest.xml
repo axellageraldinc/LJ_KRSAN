@@ -4,12 +4,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="LJ KRSAN!"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,13 +18,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity"
+        <activity android:name=".RegisterActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RuangTungguActivity" />
-        <activity android:name=".AvailableGamesActivity" />
-        <activity android:name=".GameScreen"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".HomeActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".RuangTungguActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".AvailableGamesActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".GameScreen"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

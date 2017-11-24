@@ -11,22 +11,22 @@
 
         <TextView
             android:id="@+id/txtMakul"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="100dp"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:text="TextView"
-            android:textColor="@android:color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnPilih"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:background="@drawable/button_kuning"
             android:text="PILIH"
             android:textColor="@android:color/black" />
 

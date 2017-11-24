@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,9 @@ public class GameScreen extends AppCompatActivity {
     List<String> makuls = new ArrayList<>();
     List<Score> scoreList = new ArrayList<>();
     ListView listMakul;
+    GridView gridview;
     ListMakulAdapter adapter;
+    GridAdapter adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class GameScreen extends AppCompatActivity {
 
         listMakul = findViewById(R.id.listMakul);
         adapter = new ListMakulAdapter(getApplicationContext(), makulList, i.getStringExtra("idGame"));
+        gridview = findViewById(R.id.gridMakul);
+//        gridview.setAdapter(new GridAdapter(getApplicationContext(), makulList, i.getStringExtra("idGame")));
         txtPemain1 = findViewById(R.id.txtPemain1);
         txtPemain2 = findViewById(R.id.txtPemain2);
         txtObjective = findViewById(R.id.txtObjektif);
@@ -82,19 +87,19 @@ public class GameScreen extends AppCompatActivity {
                                 winner = item.getScore();
                             }
                         }
-                        System.out.println("Pemenangnya adalah " + id_winner + " dengan score " + winner);
-                        databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("scores").child(user.getUid()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                int score1 = dataSnapshot.getValue(Score.class).getScore();
-                                System.out.println("Score anda : " + score1);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+//                        System.out.println("Pemenangnya adalah " + id_winner + " dengan score " + winner);
+//                        databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("scores").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                int score1 = dataSnapshot.getValue(Score.class).getScore();
+//                                System.out.println("Score anda : " + score1);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        });
                     }
                 }
             }
@@ -119,8 +124,11 @@ public class GameScreen extends AppCompatActivity {
                     System.out.println("Gagal get makul from db : " + ex.toString());
                 }
                 Collections.shuffle(makulList);
-                listMakul.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                adapter2 = new GridAdapter(getApplicationContext(), makulList, i.getStringExtra("idGame"));
+                gridview.setAdapter(adapter2);
+                adapter2.notifyDataSetChanged();
+//                listMakul.setAdapter(adapter);
+//                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -185,14 +193,9 @@ public class GameScreen extends AppCompatActivity {
         });
     }
     private void RandomMakul(){
-        final ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
         databaseReference.child("makul").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressDialog.setTitle("Harap tunggu");
-                progressDialog.setMessage("Me-random makul");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
 
                 makuls.clear();
                 try{
@@ -222,7 +225,6 @@ public class GameScreen extends AppCompatActivity {
 
                         }
                     });
-                    progressDialog.dismiss();
             }
 
             @Override
