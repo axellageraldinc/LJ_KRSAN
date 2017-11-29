@@ -4,11 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pap.ta.lj_krsan.AvailableGamesActivity"
-    android:orientation="vertical">
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    tools:context="pap.ta.lj_krsan.AvailableGamesActivity">
+
+    <pap.ta.lj_krsan.fonts.custom_font_1
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:text="ROOM"
+        android:textAlignment="center"
+        android:textColor="@color/kuning_gelap"
+        android:textSize="28sp" />
 
     <ListView
         android:id="@+id/listAvailableGames"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" />
 </LinearLayout>

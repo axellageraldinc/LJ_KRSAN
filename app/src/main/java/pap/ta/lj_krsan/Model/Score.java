@@ -6,20 +6,15 @@ package pap.ta.lj_krsan.Model;
 
 public class Score {
     int id, score;
-    String id_user, username;
+    String id_user, username, waktuSelesai;
 
     public Score() {
     }
 
-    public Score(int score, String id_user) {
+    public Score(int score, String id_user, String waktuSelesai) {
         this.score = score;
         this.id_user = id_user;
-    }
-
-    public Score(int score, String id_user, String username) {
-        this.score = score;
-        this.id_user = id_user;
-        this.username = username;
+        this.waktuSelesai = waktuSelesai;
     }
 
     public int getId() {
@@ -52,5 +47,13 @@ public class Score {
 
     public void setId_user(String id_user) {
         this.id_user = id_user;
+    }
+
+    public String getWaktuSelesai() {
+        return waktuSelesai;
+    }
+
+    public void setWaktuSelesai(String waktuSelesai) {
+        this.waktuSelesai = waktuSelesai;
     }
 }

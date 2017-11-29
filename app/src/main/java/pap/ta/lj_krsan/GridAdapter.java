@@ -18,7 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import pap.ta.lj_krsan.Model.Makul;
@@ -103,7 +106,6 @@ public class GridAdapter extends BaseAdapter {
                                     List<String> makulObyektifList = dataSnapshot.getValue(t);
                                     for (String item : makulObyektifList){
                                         makulObyektif[counter] = item;
-                                        System.out.println("Makul obyektif : " + item);
                                         counter++;
                                     }
                                     counter=0;
@@ -117,7 +119,10 @@ public class GridAdapter extends BaseAdapter {
                                             score-=10;
                                         }
                                     }
-                                    Score scoree = new Score(score, user.getUid());
+                                    DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                                    Date date = new Date();
+                                    System.out.println(dateFormat.format(date));
+                                    Score scoree = new Score(score, user.getUid(), dateFormat.format(date));
                                     databaseReference.child("games_info").child(idGame).child("scores").child(user.getUid()).setValue(scoree);
                                 }
 

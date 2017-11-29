@@ -1,7 +1,11 @@
 package pap.ta.lj_krsan;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -38,40 +42,62 @@ public class GameScreen extends AppCompatActivity {
     Intent i;
     int winner=0;
     String id_winner;
-    TextView txtPemain1, txtPemain2, txtObjective, txtMakul;
+    TextView txtPemain1, txtPemain2, txtObjective, txtMakul, txtTimer;
 
     List<Makul> makulList = new ArrayList<>();
     List<String> makuls = new ArrayList<>();
     List<Score> scoreList = new ArrayList<>();
-    ListView listMakul;
     GridView gridview;
-    ListMakulAdapter adapter;
     GridAdapter adapter2;
+    Handler handler;
+    MyCounter timer;
+    String[] waktuSelesai = new String[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
+
+        waktuSelesai[0]=String.valueOf(0); waktuSelesai[1]=String.valueOf(0); waktuSelesai[2]=String.valueOf(0);
+
+        handler = new Handler();
+
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         user = firebaseAuth.getCurrentUser();
 
         i = getIntent();
 
-        listMakul = findViewById(R.id.listMakul);
-        adapter = new ListMakulAdapter(getApplicationContext(), makulList, i.getStringExtra("idGame"));
         gridview = findViewById(R.id.gridMakul);
-//        gridview.setAdapter(new GridAdapter(getApplicationContext(), makulList, i.getStringExtra("idGame")));
         txtPemain1 = findViewById(R.id.txtPemain1);
         txtPemain2 = findViewById(R.id.txtPemain2);
         txtObjective = findViewById(R.id.txtObjektif);
         txtMakul = findViewById(R.id.txtMakul);
+        txtTimer = findViewById(R.id.txtTimer);
         GetPlayersName();
         GetMakulFromDb();
         GetObjektif();
         RandomMakul();
         CekScore();
     }
+
+    public class MyCounter extends CountDownTimer{
+
+        public MyCounter(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long l) {
+            txtTimer.setText((l/1000)+"");
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
+
     private void CekScore(){
         databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("scores").addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,24 +108,32 @@ public class GameScreen extends AppCompatActivity {
                     if(scoreList.size()>1){
                         //Game selesai, penentuan pemenang disini
                         for(Score item : scoreList){
+                            if(winner!=0 && item.getScore()==winner){
+                                //jika kedua pemain poinnya sama
+                                String[] waktuSelesai2 = item.getWaktuSelesai().split(":");
+                                if(Integer.parseInt(waktuSelesai2[0])<Integer.parseInt(waktuSelesai[0])){
+                                    id_winner = item.getId_user();
+                                    winner = item.getScore();
+                                } else if(Integer.parseInt(waktuSelesai2[1])<Integer.parseInt(waktuSelesai[1])){
+                                    id_winner = item.getId_user();
+                                    winner = item.getScore();
+                                } else if(Integer.parseInt(waktuSelesai2[2])<Integer.parseInt(waktuSelesai[2])){
+                                    id_winner = item.getId_user();
+                                    winner = item.getScore();
+                                }
+                            }
                             if(item.getScore()>winner) {
                                 id_winner = item.getId_user();
                                 winner = item.getScore();
+                                waktuSelesai = item.getWaktuSelesai().split(":");
                             }
                         }
-//                        System.out.println("Pemenangnya adalah " + id_winner + " dengan score " + winner);
-//                        databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("scores").child(user.getUid()).addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                int score1 = dataSnapshot.getValue(Score.class).getScore();
-//                                System.out.println("Score anda : " + score1);
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//
-//                            }
-//                        });
+                        System.out.println("Pemenangnya adalah " + id_winner + " dengan score " + winner);
+                        Intent ix = new Intent(getApplicationContext(), RankActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        ix.putExtra("id_winner", id_winner);
+                        ix.putExtra("id_game", i.getStringExtra("idGame"));
+                        startActivity(ix);
+                        finish();
                     }
                 }
             }
@@ -232,51 +266,8 @@ public class GameScreen extends AppCompatActivity {
 
             }
         });
-//        Random random = new Random();
-//        final int counter=6; int target;
-//        final List<String> makulList = new ArrayList<>();
-//        for (int j=0; j<counter; j++){
-//            target = random.nextInt((8 - 1) + 1) + 1;
-//            System.out.println("Random makul : " + target);
-//            final int finalJ = j;
-//            databaseReference.child("makul").child(String.valueOf(target)).child("name").addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    makulList.add(dataSnapshot.getValue(String.class));
-////                    if(finalJ == counter-1){
-////                        String makul = new String();
-////                        for (String item : makulList){
-////                            makul = makul + item + " ";
-////                        }
-////                        txtMakul.setText(makul);
-////                    }
-//                    databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("makul_obyektif").setValue(makulList);
-//                    databaseReference.child("games_info").child(i.getStringExtra("idGame")).child("makul_obyektif").addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            String makul = new String();
-//                            GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
-//                            List<String> makulList = dataSnapshot.getValue(t);
-//                            for(String item : makulList){
-//                                makul = makul + item + " ";
-//                            }
-//                            txtMakul.setText(makul);
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//        }
-
+        timer = new MyCounter(11000,1000);
+//        timer.start();
     }
 
     @Override

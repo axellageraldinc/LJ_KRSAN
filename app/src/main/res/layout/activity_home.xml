@@ -4,24 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pap.ta.lj_krsan.HomeActivity"
-    android:orientation="vertical">
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    android:paddingTop="15dp"
+    tools:context="pap.ta.lj_krsan.HomeActivity">
+
+    <pap.ta.lj_krsan.fonts.custom_font_1
+        android:id="@+id/txtBuatGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="BUAT ROOM"
+        android:textAlignment="center"
+        android:textColor="@color/kuning_gelap"
+        android:textSize="32sp" />
+
+    <pap.ta.lj_krsan.fonts.custom_font_1
+        android:id="@+id/txtGabungGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="LIHAT ROOM"
+        android:textAlignment="center"
+        android:textColor="@color/kuning_gelap"
+        android:textSize="32sp" />
 
     <Button
         android:id="@+id/btnBuatGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BUAT GAME" />
+        android:text="BUAT GAME"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnJoinGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GABUNG GAME" />
+        android:text="GABUNG GAME"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGOUT" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/logo" />
 </LinearLayout>

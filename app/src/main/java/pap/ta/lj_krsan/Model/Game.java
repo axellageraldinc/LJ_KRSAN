@@ -7,18 +7,19 @@ package pap.ta.lj_krsan.Model;
 public class Game {
     private String id, objective;
     private int player_amount, progress, status;
-    private String player_list;
+    private String player_list, room_name;
 
     public Game() {
     }
 
-    public Game(String id, String objective, int player_amount, int progress, String player_list, int status) {
+    public Game(String id, String objective, int player_amount, int progress, String player_list, int status, String room_name) {
         this.id = id;
         this.objective = objective;
         this.player_amount = player_amount;
         this.progress = progress;
         this.player_list = player_list;
         this.status = status;
+        this.room_name = room_name;
     }
 
     public Game(String objective, int player_amount, int progress, String player_list) {
@@ -89,5 +90,13 @@ public class Game {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getRoom_name() {
+        return room_name;
+    }
+
+    public void setRoom_name(String room_name) {
+        this.room_name = room_name;
     }
 }

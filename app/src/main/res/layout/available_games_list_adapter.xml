@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/holo_red_dark"
     android:orientation="vertical">
 
-    <TextView
+    <pap.ta.lj_krsan.fonts.custom_font_1
         android:id="@+id/txtIdGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID GAME" />
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="ID GAME"
+        android:textAlignment="center"
+        android:textColor="@color/kuning_gelap"
+        android:textSize="24sp" />
 
 </LinearLayout>

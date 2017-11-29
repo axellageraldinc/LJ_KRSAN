@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/room_name_dialog_bg"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context="pap.ta.lj_krsan.DialogRoomName">
+
+    <pap.ta.lj_krsan.fonts.custom_font_1
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="ROOM NAME"
+        android:textAlignment="center"
+        android:textColor="@color/kuning_gelap"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/txtRoomName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Masukkan nama ROOM"
+        android:inputType="textPersonName"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+    <pap.ta.lj_krsan.fonts.custom_font_1
+        android:id="@+id/txtEnter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:text="ENTER"
+        android:textAlignment="center"
+        android:textColor="@color/hijau"
+        android:textSize="28sp" />
+</LinearLayout>

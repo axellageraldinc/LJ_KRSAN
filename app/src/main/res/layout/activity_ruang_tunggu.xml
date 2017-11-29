@@ -4,16 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pap.ta.lj_krsan.RuangTungguActivity"
-    android:orientation="vertical">
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    tools:context="pap.ta.lj_krsan.RuangTungguActivity">
 
-    <TextView
+    <pap.ta.lj_krsan.fonts.custom_font_1
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
         android:text="Menunggu pemain lain..."
         android:textAlignment="center"
-        android:textSize="22sp"
+        android:textColor="@color/kuning_gelap"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
     <Button
@@ -21,4 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BATALKAN GAME" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/logo" />
 </LinearLayout>

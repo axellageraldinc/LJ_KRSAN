@@ -60,7 +60,7 @@ public class AvailableGamesListAdapter extends BaseAdapter {
         } else{
             holder = (ItemViewHolder)MyView.getTag();
         }
-        holder.txtGameId.setText(gameList.get(position).getId());
+        holder.txtGameId.setText(gameList.get(position).getRoom_name());
         return MyView;
     }
     private static class ItemViewHolder {

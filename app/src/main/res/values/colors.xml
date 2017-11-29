@@ -2,8 +2,13 @@
 <resources>
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#fad234</color>
     <color name="kuning">#fad234</color>
     <color name="kuning_gelap">#e9c020</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="hijau">#00cc44</color>
+    <color name="hijau_gelap">#00a236</color>
+    <color name="abu">#e2e2e2</color>
+    <color name="kuning_jelek">#c38b1f</color>
 </resources>

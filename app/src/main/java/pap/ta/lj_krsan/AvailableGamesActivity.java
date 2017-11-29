@@ -83,8 +83,9 @@ public class AvailableGamesActivity extends AppCompatActivity {
                 try{
                     for(DataSnapshot data : dataSnapshot.getChildren()){
                         Game game = data.getValue(Game.class);
-                        if(game.getStatus()==1)
+                        if(game.getStatus()==1) {
                             gameList.add(game);
+                        }
                     }
                 } catch (Exception ex){
                     System.out.println("Error get list games : " + ex.toString());

@@ -18,20 +18,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"
-            android:screenOrientation="landscape"/>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".HomeActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".HomeActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".RuangTungguActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".AvailableGamesActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".RuangTungguActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AvailableGamesActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".GameScreen"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".RankActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".DialogRoomName"></activity>
     </application>
 
 </manifest>
